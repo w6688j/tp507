@@ -86,6 +86,9 @@ www  WEB部署目录（或者子目录）
 > 切换到public目录后，启动命令：php -S localhost:8888  router.php
 > 上面的目录结构和名称是可以改变的，这取决于你的入口文件和配置参数。
 
+## 路由
+http://tp5.w6688j.com/index/index/test
+
 ## 命名规范
 
 `ThinkPHP5`遵循PSR-2命名规范和PSR-4自动加载规范，并且注意如下规范：
