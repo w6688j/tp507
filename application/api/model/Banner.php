@@ -9,8 +9,9 @@
 namespace app\api\model;
 
 use think\Db;
+use think\Model;
 
-class Banner
+class Banner extends Model
 {
     /**
      * getBannerByID 根据ID获取banner信息
@@ -40,6 +41,9 @@ class Banner
         $result = Db::table('banner_item')
             ->where('banner_id', '=', $id)
             ->select();
+
+        //方法三：ORM 对象关系映射
+
 
         return $result;
     }
