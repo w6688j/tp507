@@ -11,7 +11,8 @@ namespace app\api\validate;
 class IDMustBePostiveInt extends BaseValidate
 {
     protected $rule = [
-        'id' => 'require|isPostiveInteger',
+        'id'  => 'require|isPostiveInteger',
+        'num' => 'in:1,2,3',
     ];
 
     /**
