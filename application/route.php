@@ -20,9 +20,11 @@
 
 ];*/
 
-//Route::rule('路由表达式', '路由地址', '请求类型', '路由参数(数组)', '变量规则(数组)');
-
 use think\Route;
 
+//Route::rule('路由表达式', '路由地址', '请求类型', '路由参数(数组)', '变量规则(数组)');
 //Route::rule('hello', 'sample/Test/hello', 'GET', ['https' => false]);
-Route::post('hello/:id/:from', 'sample/Test/hello');
+//Route::post('hello/:id/:from', 'sample/Test/hello');
+
+//Banner相关
+Route::get('/banner/:id', 'api/v1.Banner/getBanner');
