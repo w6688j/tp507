@@ -13,6 +13,14 @@ use think\Model;
 class Banner extends Model
 {
     /**
+     * @var array  隐藏字段
+     */
+    protected $hidden = [
+        'delete_time',
+        'update_time',
+    ];
+
+    /**
      * getBannerByID 根据ID获取banner信息
      *
      * @param int $id

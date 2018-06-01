@@ -7,6 +7,17 @@ use think\Model;
 class BannerItem extends Model
 {
     /**
+     * @var array  隐藏字段
+     */
+    protected $hidden = [
+        'id',
+        'img_id',
+        'banner_id',
+        'delete_time',
+        'update_time',
+    ];
+
+    /**
      * img 关联模型
      *
      * @author wangjian

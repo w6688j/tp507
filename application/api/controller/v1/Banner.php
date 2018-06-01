@@ -57,7 +57,6 @@ class Banner
         if (!$banner) {
             throw new BannerMissException();
         }
-        $banner->hidden(['delete_time', 'update_time']);
 
         return $banner;
     }
