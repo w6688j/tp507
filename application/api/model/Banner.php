@@ -8,7 +8,6 @@
 
 namespace app\api\model;
 
-use think\Db;
 use think\Model;
 
 class Banner extends Model
@@ -38,13 +37,23 @@ class Banner extends Model
         //闭包   where(function($query) use ($id){
         //          $query->where('banner_id', '=', $id)
         //      })
-        $result = Db::table('banner_item')
+        /*$result = Db::table('banner_item')
             ->where('banner_id', '=', $id)
-            ->select();
+            ->select();*/
 
         //方法三：ORM 对象关系映射
+        return (new self())->with(['items', 'items.img'])->find($id);
+    }
 
-
-        return $result;
+    /**
+     * items 关联模型
+     *
+     * @author wangjian
+     * @time   2018/6/1 10:07
+     * @return \think\model\relation\HasMany
+     */
+    public function items()
+    {
+        return $this->hasMany('BannerItem', 'banner_id', 'id');
     }
 }
