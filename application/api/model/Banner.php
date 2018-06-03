@@ -8,9 +8,7 @@
 
 namespace app\api\model;
 
-use think\Model;
-
-class Banner extends Model
+class Banner extends BaseModel
 {
     /**
      * @var array  隐藏字段
@@ -50,7 +48,7 @@ class Banner extends Model
             ->select();*/
 
         //方法三：ORM 对象关系映射
-        return (new self())->with(['items', 'items.img'])->find($id);
+        return json((new self())->with(['items', 'items.img'])->find($id));
     }
 
     /**
