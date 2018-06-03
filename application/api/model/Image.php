@@ -7,7 +7,7 @@ class Image extends BaseModel
     /**
      * @var array  显示字段
      */
-    protected $visible = ['id', 'url'];
+    protected $visible = ['url'];
 
     /**
      * getUrlAttr URL读取器

@@ -28,3 +28,7 @@ use think\Route;
 
 //Banner相关
 Route::get('api/:version/banner/:id', 'api/:version.Banner/getBanner');
+
+//Theme相关
+Route::get('api/:version/theme', 'api/:version.Theme/getSimpleList');
+Route::get('api/:version/theme/:id', 'api/:version.Theme/getComplexOne');

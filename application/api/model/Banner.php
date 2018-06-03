@@ -48,7 +48,7 @@ class Banner extends BaseModel
             ->select();*/
 
         //方法三：ORM 对象关系映射
-        return json((new self())->with(['items', 'items.img'])->find($id));
+        return (new self())->with(['items', 'items.img'])->find($id);
     }
 
     /**

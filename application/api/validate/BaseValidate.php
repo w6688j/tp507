@@ -39,4 +39,21 @@ class BaseValidate extends Validate
             return true;
         }
     }
+
+    /**
+     * isPostiveInteger 验证是否是正整数
+     *
+     * @param mixed  $value 值
+     * @param string $rule  规则
+     * @param string $data  数据
+     * @param string $field 字段
+     *
+     * @author wangjian
+     * @time   2018/5/31 9:44
+     * @return bool|string
+     */
+    protected function isPostiveInteger($value, $rule = '', $data = '', $field = '')
+    {
+        return (is_numeric($value) && is_int($value + 0) && ($value + 0) > 0);
+    }
 }
