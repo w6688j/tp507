@@ -52,4 +52,22 @@ class Product extends BaseModel
             ->order('create_time,id desc')
             ->select();
     }
+
+    /**
+     * getProductsByCategoryID 根据分类id获取产品
+     *
+     * @param int $categoryID 分类id
+     *
+     * @return mixed
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     * @author wangjian
+     * @time   2018/6/4 9:20
+     *
+     */
+    public static function getProductsByCategoryID($categoryID)
+    {
+        return (new self())->where('category_id', '=', $categoryID)->select();
+    }
 }

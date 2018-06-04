@@ -16,7 +16,7 @@ use app\lib\exception\ThemeException;
 class Theme
 {
     /**
-     * getSimpleList
+     * getSimpleList 获取列表
      *
      * @url    /theme?ids=id1,id2,id3,......
      * @http   GET

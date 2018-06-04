@@ -10,6 +10,7 @@ namespace app\api\controller\v1;
 
 use app\api\model\Product as ProductModel;
 use app\api\validate\Count;
+use app\api\validate\IDMustBePostiveInt;
 use app\lib\exception\ProductException;
 
 class Product
@@ -41,6 +42,29 @@ class Product
         $products   = $collection->hidden(['summary']);*/
 
         //方法二：修改database配置文件中的resultset_type为collection
+        $products->hidden(['summary']);
+
+        return $products;
+    }
+
+    /**
+     * getAllInCategory 获取所属分类的产品
+     *
+     * @param int $id 分类id
+     *
+     * @author wangjian
+     * @time   2018/6/4 9:16
+     *
+     * @return mixed
+     * @throws \think\Exception
+     */
+    public function getAllInCategory($id)
+    {
+        (new IDMustBePostiveInt())->goCheck();
+        $products = ProductModel::getProductsByCategoryID($id);
+        if ($products->isEmpty()) {
+            throw new ProductException();
+        }
         $products->hidden(['summary']);
 
         return $products;
