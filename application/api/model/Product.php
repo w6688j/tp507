@@ -2,6 +2,8 @@
 
 namespace app\api\model;
 
+use think\Collection;
+
 class Product extends BaseModel
 {
     protected $hidden = [
@@ -28,5 +30,26 @@ class Product extends BaseModel
     public function getMainImgUrlAttr($value, $data)
     {
         return $this->prefixImgUrl($value, $data);
+    }
+
+    /**
+     * getMostRecent 获取最新产品列表
+     *
+     * @param int $count 列表产品数
+     *
+     * @author wangjian
+     * @time   2018/6/3 18:42
+     *
+     * @return Collection|mixed
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
+    public static function getMostRecent($count)
+    {
+        return (new self())
+            ->limit($count)
+            ->order('create_time,id desc')
+            ->select();
     }
 }

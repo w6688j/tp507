@@ -62,7 +62,7 @@ class Theme extends BaseModel
      */
     public static function getThemeListByIDs($ids = [])
     {
-        return json((new self())->with(['topicImg', 'headImg'])->select($ids));
+        return (new self())->with(['topicImg', 'headImg'])->select($ids);
     }
 
     /**

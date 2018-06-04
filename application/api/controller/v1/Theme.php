@@ -33,7 +33,7 @@ class Theme
         (new IDCollection())->goCheck();
         $ids    = explode(',', $ids);
         $result = ThemeModel::getThemeListByIDs($ids);
-        if (!$result) {
+        if ($result->isEmpty()) {
             throw new ThemeException();
         }
 
