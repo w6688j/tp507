@@ -24,7 +24,7 @@ use think\Route;
 
 //Route::rule('路由表达式', '路由地址', '请求类型', '路由参数(数组)', '变量规则(数组)');
 //Route::rule('hello', 'sample/Test/hello', 'GET', ['https' => false]);
-//Route::post('hello/:id/:from', 'sample/Test/hello');
+Route::get('/', 'index/Index/welcome');
 
 //Banner相关
 Route::get('api/:version/banner/:id', 'api/:version.Banner/getBanner');
@@ -39,3 +39,6 @@ Route::get('api/:version/product/by_category', 'api/:version.Product/getAllInCat
 
 //Category相关
 Route::get('api/:version/category/all', 'api/:version.Category/getAllCategories');
+
+//Token相关
+Route::post('api/:version/token/user', 'api/:version.Token/getToken');

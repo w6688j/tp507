@@ -56,4 +56,22 @@ class BaseValidate extends Validate
     {
         return (is_numeric($value) && is_int($value + 0) && ($value + 0) > 0);
     }
+
+    /**
+     * isNotEmpty 判断是否为空
+     *
+     * @param mixed  $value 值
+     * @param string $rule  规则
+     * @param string $data  数据
+     * @param string $field 字段
+     *
+     * @author wangjian
+     * @time   2018/6/4 10:03
+     *
+     * @return bool
+     */
+    protected function isNotEmpty($value, $rule = '', $data = '', $field = '')
+    {
+        return !empty($value);
+    }
 }

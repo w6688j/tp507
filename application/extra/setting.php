@@ -7,5 +7,6 @@
  */
 
 return [
-    'img_prefix' => 'http://tp5.w6688j.com/images',
+    'img_prefix'      => 'http://tp5.w6688j.com/images',
+    'token_expire_in' => 7200,
 ];
