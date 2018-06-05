@@ -87,7 +87,10 @@ www  WEB部署目录（或者子目录）
 > 上面的目录结构和名称是可以改变的，这取决于你的入口文件和配置参数。
 
 ## 路由
-http://tp5.w6688j.com/index/index/test
+http://mp.w6688j.com/api/v1/theme
+
+## 前端微信小程序
+项目WeChatMP
 
 ## 命名规范
 
