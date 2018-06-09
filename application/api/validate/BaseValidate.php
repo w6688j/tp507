@@ -76,6 +76,27 @@ class BaseValidate extends Validate
     }
 
     /**
+     * isMobile 判断是否是手机号
+     *
+     * @param mixed  $value 值
+     * @param string $rule  规则
+     * @param string $data  数据
+     * @param string $field 字段
+     *
+     * @author wangjian
+     * @time   2018/6/9 19:01
+     *
+     * @return bool
+     */
+    protected function isMobile($value, $rule = '', $data = '', $field = '')
+    {
+        $rule   = '^1(3|4|5|7|8)[0-9]\d{8}$^';
+        $result = preg_match($rule, $value);
+
+        return (bool)$result;
+    }
+
+    /**
      * getDataByRule 根据验证规则过滤参数
      *
      * @param array $params 参数
