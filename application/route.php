@@ -36,6 +36,7 @@ Route::get('api/:version/theme/:id', 'api/:version.Theme/getComplexOne');
 //Product相关
 Route::get('api/:version/product/recent', 'api/:version.Product/getRecent');
 Route::get('api/:version/product/by_category', 'api/:version.Product/getAllInCategory');
+Route::get('api/:version/product/:id', 'api/:version.Product/getOne');
 
 //Category相关
 Route::get('api/:version/category/all', 'api/:version.Category/getAllCategories');

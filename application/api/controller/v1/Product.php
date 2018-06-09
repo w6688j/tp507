@@ -69,4 +69,30 @@ class Product
 
         return $products;
     }
+
+    /**
+     * getOne 获取商品详情
+     *
+     * @param int $id 商品id
+     *
+     * @author wangjian
+     * @time   2018/6/5 12:02
+     *
+     * @return array|false|mixed|\PDOStatement|string|\think\Model
+     * @throws ProductException
+     * @throws \think\Exception
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
+    public function getOne($id)
+    {
+        (new IDMustBePostiveInt())->goCheck();
+        $product = ProductModel::getProductDetail($id);
+        if (!$product) {
+            throw new ProductException();
+        }
+
+        return $product;
+    }
 }

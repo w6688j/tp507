@@ -52,7 +52,7 @@ class Banner extends BaseModel
     }
 
     /**
-     * items 关联模型
+     * items 关联模型 一对多
      *
      * @author wangjian
      * @time   2018/6/1 10:07

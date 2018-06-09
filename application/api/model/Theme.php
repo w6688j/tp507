@@ -12,7 +12,7 @@ class Theme extends BaseModel
     ];
 
     /**
-     * topicImg 关联模型
+     * topicImg 关联模型 一对一
      *
      * @author wangjian
      * @time   2018/6/3 14:12
@@ -24,7 +24,7 @@ class Theme extends BaseModel
     }
 
     /**
-     * headImg 关联模型
+     * headImg 关联模型 一对一
      *
      * @author wangjian
      * @time   2018/6/3 14:12
@@ -36,7 +36,7 @@ class Theme extends BaseModel
     }
 
     /**
-     * products 关联模型
+     * products 关联模型 多对多
      *
      * @author wangjian
      * @time   2018/6/3 17:04

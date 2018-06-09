@@ -17,7 +17,7 @@ class Category extends BaseModel
     ];
 
     /**
-     * topicImg 关联模型
+     * topicImg 关联模型 一对一
      *
      * @author wangjian
      * @time   2018/6/3 14:12
