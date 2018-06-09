@@ -17,7 +17,7 @@ use app\lib\exception\UserException;
 class Address
 {
     /**
-     * createOrUpdateAddress
+     * createOrUpdateAddress 创建或更新用户地址
      *
      * @author wangjian
      * @time   2018/6/9 18:31
