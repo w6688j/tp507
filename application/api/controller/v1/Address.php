@@ -46,6 +46,6 @@ class Address
         else
             $user->address->save($dataArray);
 
-        return (new SuccessMessage());
+        return json(new SuccessMessage(), 201);
     }
 }
