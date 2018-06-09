@@ -11,6 +11,18 @@ namespace app\api\model;
 class User extends BaseModel
 {
     /**
+     * address 关联模型
+     *
+     * @author wangjian
+     * @time   2018/6/9 18:21
+     * @return \think\model\relation\HasOne
+     */
+    public function address()
+    {
+        return $this->hasOne('UserAddress', 'user_id', 'id');
+    }
+
+    /**
      * getByOpenId 根据openId查询用户数据
      *
      * @param string $openid 微信用户openId

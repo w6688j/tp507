@@ -8,6 +8,11 @@
 
 namespace app\api\service;
 
+use app\lib\exception\TokenException;
+use think\Cache;
+use think\Exception;
+use think\Request;
+
 class Token
 {
     /**
@@ -27,5 +32,51 @@ class Token
         $salt = config('secure.token_salt');
 
         return md5($randChars . $timestamp . $salt);
+    }
+
+    /**
+     * getCurrentTokenVar 获取当前Token对应值
+     *
+     * @param string $key 键名
+     *
+     * @author wangjian
+     * @time   2018/6/9 17:41
+     *
+     * @return mixed
+     * @throws TokenException
+     * @throws \think\Exception
+     */
+    public static function getCurrentTokenVar($key)
+    {
+        $token = Request::instance()
+            ->header('token');
+
+        $vars = Cache::get($token);
+        if (!$vars)
+            throw new TokenException();
+
+        if (!is_array($vars))
+            $vars = json_decode($vars, true);
+
+        if (!array_key_exists($key, $vars))
+            throw new Exception('尝试获取的Token变量并不存在');
+
+        return $vars[$key];
+    }
+
+    /**
+     * getCurrentUID 获取当前UID
+     *
+     * @author wangjian
+     * @time   2018/6/9 17:44
+     * @return mixed
+     * @throws Exception
+     * @throws TokenException
+     */
+    public static function getCurrentUID()
+    {
+        $uid = self::getCurrentTokenVar('uid');
+
+        return $uid;
     }
 }

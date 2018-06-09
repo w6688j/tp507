@@ -74,4 +74,31 @@ class BaseValidate extends Validate
     {
         return !empty($value);
     }
+
+    /**
+     * getDataByRule 根据验证规则过滤参数
+     *
+     * @param array $params 参数
+     *
+     * @author wangjian
+     * @time   2018/6/9 18:42
+     *
+     * @return array
+     * @throws Exception
+     * @throws ParameterException
+     */
+    public function getDataByRule($params)
+    {
+        if (array_key_exists('user_id', $params) || array_key_exists('uid', $params))
+            throw new ParameterException([
+                'msg' => '参数包含有非法的参数名user_id或uid',
+            ]);
+
+        $data = [];
+        foreach ($this->rule as $key => $value) {
+            $data[$key] = $params[$key];
+        }
+
+        return $data;
+    }
 }
