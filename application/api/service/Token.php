@@ -79,4 +79,20 @@ class Token
 
         return $uid;
     }
+
+    /**
+     * getCurrentScope 获取当前权限值
+     *
+     * @author wangjian
+     * @time   2018/6/11 11:09
+     * @return mixed
+     * @throws Exception
+     * @throws TokenException
+     */
+    public static function getCurrentScope()
+    {
+        $scope = self::getCurrentTokenVar('scope');
+
+        return $scope;
+    }
 }
