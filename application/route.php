@@ -22,29 +22,34 @@
 
 use think\Route;
 
-//Route::rule('路由表达式', '路由地址', '请求类型', '路由参数(数组)', '变量规则(数组)');
-//Route::rule('hello', 'sample/Test/hello', 'GET', ['https' => false]);
+// Route::rule('路由表达式', '路由地址', '请求类型', '路由参数(数组)', '变量规则(数组)');
+// Route::rule('hello', 'sample/Test/hello', 'GET', ['https' => false]);
 Route::get('/', 'index/Index/welcome');
 
-//Banner相关
+// Banner相关
 Route::get('api/:version/banner/:id', 'api/:version.Banner/getBanner');
 
-//Theme相关
+// Theme相关
 Route::get('api/:version/theme', 'api/:version.Theme/getSimpleList');
 Route::get('api/:version/theme/:id', 'api/:version.Theme/getComplexOne');
 
-//Product相关
+// Product相关
 Route::group('api/:version/product', function () {
     Route::get('/by_category', 'api/:version.Product/getAllInCategory');
     Route::get('/:id', 'api/:version.Product/getOne', [], ['id' => '\d+']);
     Route::get('/recent', 'api/:version.Product/getRecent');
 });
 
-//Category相关
+// Category相关
 Route::get('api/:version/category/all', 'api/:version.Category/getAllCategories');
 
-//Token相关
+// Token相关
 Route::post('api/:version/token/user', 'api/:version.Token/getToken');
 
-//Address相关
+// Address相关
 Route::post('api/:version/address', 'api/:version.Address/createOrUpdateAddress');
+
+// Order相关
+Route::group('api/:version/order', function () {
+    Route::post('/', 'api/:version.Order/placeOrder');
+});

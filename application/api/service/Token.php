@@ -8,6 +8,8 @@
 
 namespace app\api\service;
 
+use app\lib\enum\ScopeEnum;
+use app\lib\exception\ForbiddenException;
 use app\lib\exception\TokenException;
 use think\Cache;
 use think\Exception;
@@ -94,5 +96,53 @@ class Token
         $scope = self::getCurrentTokenVar('scope');
 
         return $scope;
+    }
+
+    /**
+     * needPrimaryScope 需要用户和CMS管理员都可以访问的权限
+     *
+     * @author wangjian
+     * @time   2018/6/14 22:41
+     * @return bool
+     * @throws Exception
+     * @throws ForbiddenException
+     * @throws TokenException
+     */
+    public static function needPrimaryScope()
+    {
+        // 根据Token获取用户Scope
+        $scope = self::getCurrentScope();
+        if (!$scope) {
+            throw new TokenException();
+        }
+        if ($scope < ScopeEnum::User) {
+            throw new ForbiddenException();
+        }
+
+        return true;
+    }
+
+    /**
+     * needExclusiveScope 只有用户可以访问的权限
+     *
+     * @author wangjian
+     * @time   2018/6/11 11:14
+     * @return bool
+     * @throws ForbiddenException
+     * @throws \app\lib\exception\TokenException
+     * @throws \think\Exception
+     */
+    public static function needExclusiveScope()
+    {
+        // 根据Token获取用户Scope
+        $scope = self::getCurrentScope();
+        if (!$scope) {
+            throw new TokenException();
+        }
+        if ($scope != ScopeEnum::User) {
+            throw new ForbiddenException();
+        }
+
+        return true;
     }
 }
