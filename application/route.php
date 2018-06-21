@@ -53,3 +53,6 @@ Route::post('api/:version/address', 'api/:version.Address/createOrUpdateAddress'
 Route::group('api/:version/order', function () {
     Route::post('/', 'api/:version.Order/placeOrder');
 });
+
+// Pay相关
+Route::post('api/:version/pay/pre_order', 'api/:version.Pay/getPreOrder');

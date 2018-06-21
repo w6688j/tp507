@@ -81,11 +81,10 @@ class Order
         foreach ($oProducts as $item) {
             array_push($oPIDs, $item['product_id']);
         }
-        $products = Product::all($oPIDs)
+
+        return Product::all($oPIDs)
             ->visible(['id', 'price', 'stock', 'name', 'main_img_url'])
             ->toArray();
-
-        return $products;
     }
 
     /**
@@ -297,5 +296,29 @@ class Order
             sprintf('%02d', rand(0, 99));
 
         return $orderSn;
+    }
+
+    /**
+     * checkOrderStock 检查库存
+     *
+     * @param int $orderID 订单ID
+     *
+     * @return array
+     * @throws Exception
+     * @throws OrderException
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     * @author wangjian
+     * @time   2018/6/21 11:41
+     *
+     */
+    public function checkOrderStock($orderID)
+    {
+        $oProducts       = (new OrderProduct())->where('order_id', '=', $orderID)->select()->toArray();
+        $this->oProducts = $oProducts;
+        $this->products  = $this->getProductsByOrder($oProducts);
+
+        return $this->getOrderStatus();
     }
 }
