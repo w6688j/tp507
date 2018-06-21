@@ -68,7 +68,7 @@ class OrderPlace extends BaseValidate
     protected function checkProduct($value)
     {
         $validate = new BaseValidate($this->singleRule);
-        $result   = $validate->check($value);
+        $result   = $validate->batch()->check($value);
         if (!$result) {
             throw new ParameterException([
                 'msg' => '商品列表参数不正确',
