@@ -16,7 +16,7 @@ use app\api\validate\OrderPlace;
 class Order extends BaseController
 {
     protected $beforeActionList = [
-        'checkExclusiveScope' => ['only' => 'createOrUpdateAddress'],
+        'checkExclusiveScope' => ['only' => 'placeOrder'],
     ];
 
     // 用户在选择商品后，向API提交包含所选择商品的信息

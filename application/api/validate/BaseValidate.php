@@ -41,7 +41,7 @@ class BaseValidate extends Validate
     }
 
     /**
-     * isPostiveInteger 验证是否是正整数
+     * isPositiveInteger 验证是否是正整数
      *
      * @param mixed  $value 值
      * @param string $rule  规则
@@ -52,7 +52,7 @@ class BaseValidate extends Validate
      * @time   2018/5/31 9:44
      * @return bool|string
      */
-    protected function isPostiveInteger($value, $rule = '', $data = '', $field = '')
+    protected function isPositiveInteger($value, $rule = '', $data = '', $field = '')
     {
         return (is_numeric($value) && is_int($value + 0) && ($value + 0) > 0);
     }

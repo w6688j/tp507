@@ -11,7 +11,7 @@ namespace app\api\validate;
 class Count extends BaseValidate
 {
     protected $rule = [
-        'count' => 'isPostiveInteger|between:1,20',
+        'count' => 'isPositiveInteger|between:1,20',
     ];
 
     protected $message = [
