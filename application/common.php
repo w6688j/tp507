@@ -39,6 +39,39 @@ function curl_get($url, &$httpCode = 0)
 }
 
 /**
+ * curl_post_raw
+ *
+ * @param string $url
+ * @param        $rawData
+ *
+ * @author wangjian
+ * @time   2018/6/23 19:19
+ *
+ * @return mixed
+ */
+function curl_post_raw($url, $rawData)
+{
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_HEADER, 0);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $rawData);
+    curl_setopt(
+        $ch, CURLOPT_HTTPHEADER,
+        [
+            'Content-Type: text',
+        ]
+    );
+    $data = curl_exec($ch);
+    curl_close($ch);
+
+    return ($data);
+}
+
+/**
  * getRandChars 获取随机字符串
  *
  * @param int $length 字符串长度，默认32位

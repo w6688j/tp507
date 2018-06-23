@@ -47,9 +47,21 @@ class Pay extends BaseController
      * receiveNotify 接收回调
      *
      * @author wangjian
-     * @time   2018/6/23 18:53
+     * @time   2018/6/23 19:13
      */
     public function receiveNotify()
+    {
+        $xmlData = file_get_contents('php://input');
+        $result  = curl_post_raw('https://mp.w6688j.com/api/v1/pay/re_notify?XDEBUG_SESSION_START=15876', $xmlData);
+    }
+
+    /**
+     * redirectNotify 接收转发回调
+     *
+     * @author wangjian
+     * @time   2018/6/23 18:53
+     */
+    public function redirectNotify()
     {
         // 通知频率为15/15/30/180/1800/1800/1800/1800/3600，单位：秒
 

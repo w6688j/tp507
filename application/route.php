@@ -58,4 +58,5 @@ Route::group('api/:version/order', function () {
 Route::group('api/:version/pay', function () {
     Route::post('/pre_order', 'api/:version.Pay/getPreOrder');
     Route::post('/notify', 'api/:version.Pay/receiveNotify');
+    Route::post('/re_notify', 'api/:version.Pay/redirectNotify');
 });
