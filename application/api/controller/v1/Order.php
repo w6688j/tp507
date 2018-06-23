@@ -9,9 +9,11 @@
 namespace app\api\controller\v1;
 
 use app\api\controller\BaseController;
+use app\api\model\Order as OrderModel;
 use app\api\service\Order as OrderService;
 use app\api\service\Token as TokenService;
 use app\api\validate\OrderPlace;
+use app\api\validate\PagingParameter;
 
 class Order extends BaseController
 {
@@ -45,4 +47,37 @@ class Order extends BaseController
 
         return ((new OrderService())->place($uid, $products));
     }
+
+    /**
+     * getSummaryByUser 分页获取订单列表
+     *
+     * @param int $page 当前页
+     * @param int $size 分页大小
+     *
+     * @author wangjian
+     * @time   2018/6/23 19:58
+     *
+     * @return mixed
+     * @throws \app\lib\exception\TokenException
+     * @throws \think\Exception
+     * @throws \think\exception\DbException
+     */
+    public function getSummaryByUser($page = 1, $size = 15)
+    {
+        (new PagingParameter())->goCheck();
+        $uid          = TokenService::getCurrentUID();
+        $pagingOrders = OrderModel::getSummaryByUser($uid, $page, $size);
+        if ($pagingOrders->isEmpty()) {
+            return [
+                'data'         => [],
+                'current_page' => $pagingOrders->getCurrentPage(),
+            ];
+        }
+
+        return [
+            'data'         => $pagingOrders->toArray(),
+            'current_page' => $pagingOrders->getCurrentPage(),
+        ];
+    }
+
 }

@@ -52,6 +52,7 @@ Route::post('api/:version/address', 'api/:version.Address/createOrUpdateAddress'
 // Order相关
 Route::group('api/:version/order', function () {
     Route::post('/', 'api/:version.Order/placeOrder');
+    Route::get('/buy_user', 'api/:version.Order/getSummaryByUser');
 });
 
 // Pay相关
