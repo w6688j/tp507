@@ -145,4 +145,25 @@ class Token
 
         return true;
     }
+
+    /**
+     * isValidOperate 校验操作者
+     *
+     * @param int $checkedUID 被校验UID
+     *
+     * @author wangjian
+     * @time   2018/6/23 14:12
+     *
+     * @return bool
+     * @throws Exception
+     * @throws TokenException
+     */
+    public static function isValidOperate($checkedUID)
+    {
+        if (!$checkedUID) {
+            throw new Exception('检查UID时必须传入一个被检查的UID');
+        }
+
+        return ($checkedUID == self::getCurrentUID());
+    }
 }
