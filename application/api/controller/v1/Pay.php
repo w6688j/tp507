@@ -26,6 +26,7 @@ class Pay extends BaseController
      * @author wangjian
      * @time   2018/6/23 15:27
      *
+     * @return array
      * @throws \WxPayException
      * @throws \app\lib\exception\OrderException
      * @throws \app\lib\exception\TokenException
@@ -37,6 +38,7 @@ class Pay extends BaseController
     public function getPreOrder($id)
     {
         (new IDMustBePositiveInt())->goCheck();
-        (new PayService($id))->pay();
+
+        return (new PayService($id))->pay();
     }
 }
