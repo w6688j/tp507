@@ -12,13 +12,16 @@ use app\api\controller\BaseController;
 use app\api\model\Order as OrderModel;
 use app\api\service\Order as OrderService;
 use app\api\service\Token as TokenService;
+use app\api\validate\IDMustBePositiveInt;
 use app\api\validate\OrderPlace;
 use app\api\validate\PagingParameter;
+use app\lib\exception\OrderException;
 
 class Order extends BaseController
 {
     protected $beforeActionList = [
         'checkExclusiveScope' => ['only' => 'placeOrder'],
+        'checkPrimaryScope'   => ['only' => 'getSummaryByUser,getDetail'],
     ];
 
     // 用户在选择商品后，向API提交包含所选择商品的信息
@@ -75,9 +78,32 @@ class Order extends BaseController
         }
 
         return [
-            'data'         => $pagingOrders->toArray(),
+            'data'         => $pagingOrders->hidden(['snap_items', 'snap_address', 'prepay_id'])->toArray(),
             'current_page' => $pagingOrders->getCurrentPage(),
         ];
     }
 
+    /**
+     * getDetail 获取订单详情
+     *
+     * @param int $id 订单id
+     *
+     * @author wangjian
+     * @time   2018/6/23 20:15
+     *
+     * @return mixed
+     * @throws OrderException
+     * @throws \think\Exception
+     * @throws \think\exception\DbException
+     */
+    public function getDetail($id)
+    {
+        (new IDMustBePositiveInt())->goCheck();
+        $orderDetail = OrderModel::get($id);
+        if (!$orderDetail) {
+            throw new OrderException();
+        }
+
+        return $orderDetail->hidden(['prepay_id']);
+    }
 }

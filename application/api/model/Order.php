@@ -14,6 +14,44 @@ class Order extends BaseModel
     protected $autoWriteTimestamp = true;
 
     /**
+     * getSnapItemsAttr 读取器
+     *
+     * @param string $value 值
+     *
+     * @author wangjian
+     * @time   2018/6/23 20:21
+     *
+     * @return mixed|null
+     */
+    public function getSnapItemsAttr($value)
+    {
+        if (empty($value)) {
+            return null;
+        }
+
+        return json_decode($value);
+    }
+
+    /**
+     * getSnapAddressAttr 读取器
+     *
+     * @param string $value 值
+     *
+     * @author wangjian
+     * @time   2018/6/23 20:22
+     *
+     * @return mixed|null
+     */
+    public function getSnapAddressAttr($value)
+    {
+        if (empty($value)) {
+            return null;
+        }
+
+        return json_decode($value);
+    }
+
+    /**
      * getSummaryByUser 分页获取订单列表
      *
      * @param int $uid  用户id
