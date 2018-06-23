@@ -52,7 +52,8 @@ class Pay extends BaseController
     public function receiveNotify()
     {
         $xmlData = file_get_contents('php://input');
-        $result  = curl_post_raw('https://mp.w6688j.com/api/v1/pay/re_notify?XDEBUG_SESSION_START=15876', $xmlData);
+
+        return curl_post_raw('https://mp.w6688j.com/api/v1/pay/re_notify?XDEBUG_SESSION_START=15876', $xmlData);
     }
 
     /**
