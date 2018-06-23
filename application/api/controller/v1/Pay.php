@@ -11,6 +11,7 @@ namespace app\api\controller\v1;
 use app\api\controller\BaseController;
 use app\api\service\Pay as PayService;
 use app\api\validate\IDMustBePositiveInt;
+use app\api\service\WxNotify;
 
 class Pay extends BaseController
 {
@@ -42,6 +43,12 @@ class Pay extends BaseController
         return (new PayService($id))->pay();
     }
 
+    /**
+     * receiveNotify 接收回调
+     *
+     * @author wangjian
+     * @time   2018/6/23 18:53
+     */
     public function receiveNotify()
     {
         // 通知频率为15/15/30/180/1800/1800/1800/1800/3600，单位：秒
@@ -52,6 +59,6 @@ class Pay extends BaseController
         // 如果成功处理，返回微信成功处理的信息；否则，返回未成功的处理
 
         // 特点：post xml格式 不会携带参数
-
+        return (new WxNotify())->Handle();
     }
 }
