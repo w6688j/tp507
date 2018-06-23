@@ -45,6 +45,7 @@ class WxNotify extends \WxPayNotify
             try {
                 $order = (new OrderModel())
                     ->where('order_no', '=', $orderNo)
+                    ->lock(true)
                     ->find();
 
                 if ($order->status == OrderStatusEnum::UNPAID) {
