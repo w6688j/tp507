@@ -55,4 +55,7 @@ Route::group('api/:version/order', function () {
 });
 
 // Pay相关
-Route::post('api/:version/pay/pre_order', 'api/:version.Pay/getPreOrder');
+Route::group('api/:version/pay', function () {
+    Route::post('/pre_order', 'api/:version.Pay/getPreOrder');
+    Route::post('/notify', 'api/:version.Pay/receiveNotify');
+});

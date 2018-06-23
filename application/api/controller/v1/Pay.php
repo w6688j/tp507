@@ -41,4 +41,17 @@ class Pay extends BaseController
 
         return (new PayService($id))->pay();
     }
+
+    public function receiveNotify()
+    {
+        // 通知频率为15/15/30/180/1800/1800/1800/1800/3600，单位：秒
+
+        // 检测库存量，超卖
+        // 更新订单status状态
+        // 减库存
+        // 如果成功处理，返回微信成功处理的信息；否则，返回未成功的处理
+
+        // 特点：post xml格式 不会携带参数
+
+    }
 }
