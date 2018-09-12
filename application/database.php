@@ -13,13 +13,13 @@ return [
     // 数据库类型
     'type'            => 'mysql',
     // 服务器地址
-    'hostname'        => '47.105.110.226',
+    'hostname'        => '43.226.37.77',
     // 数据库名
     'database'        => 'zerg',
     // 用户名
     'username'        => 'root',
     // 密码
-    'password'        => '123456',
+    'password'        => 'Wj6688!@.',
     // 端口
     'hostport'        => '',
     // 连接dsn
