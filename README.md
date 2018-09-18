@@ -133,3 +133,6 @@ All rights reserved。
 ThinkPHP® 商标和著作权所有者为上海顶想信息科技有限公司。
 
 更多细节参阅 [LICENSE.txt](LICENSE.txt)
+
+// 优化sql php think optimize:schema 生成字段缓存信息
+    // 优化route php think optimize:route 生成路由缓存信息

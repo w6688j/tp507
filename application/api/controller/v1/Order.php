@@ -16,6 +16,7 @@ use app\api\validate\IDMustBePositiveInt;
 use app\api\validate\OrderPlace;
 use app\api\validate\PagingParameter;
 use app\lib\exception\OrderException;
+use app\lib\exception\SuccessMessage;
 
 class Order extends BaseController
 {
@@ -105,5 +106,55 @@ class Order extends BaseController
         }
 
         return $orderDetail->hidden(['prepay_id']);
+    }
+
+    /**
+     * 获取全部订单简要信息（分页）
+     *
+     * @param int $page
+     * @param int $size
+     *
+     * @throws \think\Exception
+     * @return array
+     * @throws \app\lib\exception\ParameterException
+     */
+    public function getSummary($page = 1, $size = 20)
+    {
+        (new PagingParameter())->goCheck();
+        $pagingOrders = OrderModel::getSummaryByPage($page, $size);
+        if ($pagingOrders->isEmpty()) {
+            return [
+                'current_page' => $pagingOrders->currentPage(),
+                'data'         => [],
+            ];
+        }
+        $data = $pagingOrders->hidden(['snap_items', 'snap_address'])
+            ->toArray();
+
+        return [
+            'current_page' => $pagingOrders->currentPage(),
+            'data'         => $data,
+        ];
+    }
+
+    /**
+     * delivery
+     *
+     * @param $id
+     *
+     * @author wangjian
+     * @time   2018/9/18 20:47
+     *
+     * @throws \think\Exception
+     * @return SuccessMessage
+     */
+    public function delivery($id)
+    {
+        (new IDMustBePositiveInt())->goCheck();
+        $order   = new OrderService();
+        $success = $order->delivery($id);
+        if ($success) {
+            return new SuccessMessage();
+        }
     }
 }

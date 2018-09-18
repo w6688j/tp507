@@ -55,10 +55,11 @@ Route::get('api/:version/address', 'api/:version.Address/getUserAddress');
 // Order相关
 Route::group('api/:version/order', function () {
     Route::post('/', 'api/:version.Order/placeOrder');
+    Route::get('/:id', 'api/:version.Order/getDetail', [], ['id' => '\d+']);
+    Route::put('/delivery', 'api/:version.Order/delivery');
     //不想把所有查询都写在一起，所以增加by_user，很好的REST与RESTFul的区别
     Route::get('/by_user', 'api/:version.Order/getSummaryByUser');
     Route::get('/paginate', 'api/:version.Order/getSummary');
-    Route::get('/:id', 'api/:version.Order/getDetail', [], ['id' => '\d+']);
 });
 
 // Pay相关

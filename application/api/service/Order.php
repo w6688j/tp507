@@ -11,6 +11,7 @@ namespace app\api\service;
 use app\api\model\OrderProduct;
 use app\api\model\Product;
 use app\api\model\UserAddress;
+use app\lib\enum\OrderStatusEnum;
 use app\lib\exception\OrderException;
 use app\lib\exception\UserException;
 use app\api\model\Order as OrderModel;
@@ -324,5 +325,101 @@ class Order
         $this->products  = $this->getProductsByOrder($oProducts);
 
         return $this->getOrderStatus();
+    }
+
+    /**
+     * delivery
+     *
+     * @param        $orderID
+     * @param string $jumpPage
+     *
+     * @author wangjian
+     * @time   2018/9/18 20:48
+     *
+     * @throws Exception
+     * @throws OrderException
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     * @return bool
+     */
+    public function delivery($orderID, $jumpPage = '')
+    {
+        $order = (new OrderModel)->where('id', '=', $orderID)
+            ->find();
+        if (!$order) {
+            throw new OrderException();
+        }
+        if ($order->status != OrderStatusEnum::PAID) {
+            throw new OrderException([
+                'msg'       => '还没付款呢，想干嘛？或者你已经更新过订单了，不要再刷了',
+                'errorCode' => 80002,
+                'code'      => 403,
+            ]);
+        }
+        $order->status = OrderStatusEnum::DELIVERED;
+        $order->save();
+        $message = new DeliveryMessage();
+
+        return $message->sendDeliveryMessage($order, $jumpPage);
+    }
+
+    // 创建订单时没有预扣除库存量，简化处理
+    // 如果预扣除了库存量需要队列支持，且需要使用锁机制
+    private function createOrderByTrans($snap)
+    {
+        try {
+            $orderNo             = $this->makeOrderNo();
+            $order               = new OrderModel();
+            $order->user_id      = $this->uid;
+            $order->order_no     = $orderNo;
+            $order->total_price  = $snap['orderPrice'];
+            $order->total_count  = $snap['totalCount'];
+            $order->snap_img     = $snap['snapImg'];
+            $order->snap_name    = $snap['snapName'];
+            $order->snap_address = $snap['snapAddress'];
+            $order->snap_items   = json_encode($snap['pStatus']);
+            $order->save();
+
+            $orderID     = $order->id;
+            $create_time = $order->create_time;
+
+            foreach ($this->oProducts as &$p) {
+                $p['order_id'] = $orderID;
+            }
+            $orderProduct = new OrderProduct();
+            $orderProduct->saveAll($this->oProducts);
+
+            return [
+                'order_no'    => $orderNo,
+                'order_id'    => $orderID,
+                'create_time' => $create_time,
+            ];
+        } catch (Exception $ex) {
+            throw $ex;
+        }
+    }
+
+    // 单个商品库存检测
+    private function snapProduct($product, $oCount)
+    {
+        $pStatus = [
+            'id'           => null,
+            'name'         => null,
+            'main_img_url' => null,
+            'count'        => $oCount,
+            'totalPrice'   => 0,
+            'price'        => 0,
+        ];
+
+        $pStatus['counts'] = $oCount;
+        // 以服务器价格为准，生成订单
+        $pStatus['totalPrice']   = $oCount * $product['price'];
+        $pStatus['name']         = $product['name'];
+        $pStatus['id']           = $product['id'];
+        $pStatus['main_img_url'] = $product['main_img_url'];
+        $pStatus['price']        = $product['price'];
+
+        return $pStatus;
     }
 }

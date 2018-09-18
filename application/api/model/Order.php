@@ -14,6 +14,18 @@ class Order extends BaseModel
     protected $autoWriteTimestamp = true;
 
     /**
+     * products
+     *
+     * @author wangjian
+     * @time   2018/9/18 20:30
+     * @return \think\model\relation\BelongsToMany
+     */
+    public function products()
+    {
+        return $this->belongsToMany('Product', 'order_product', 'product_id', 'order_id');
+    }
+
+    /**
      * getSnapItemsAttr 读取器
      *
      * @param string $value 值
@@ -70,5 +82,25 @@ class Order extends BaseModel
             ->where('user_id', '=', $uid)
             ->order('create_time desc')
             ->paginate($size, true, ['page' => $page]);
+    }
+
+    /**
+     * getSummaryByPage
+     *
+     * @param int $page
+     * @param int $size
+     *
+     * @author wangjian
+     * @time   2018/9/18 20:29
+     *
+     * @throws \think\exception\DbException
+     * @return \think\Paginator
+     */
+    public static function getSummaryByPage($page = 1, $size = 20)
+    {
+        $pagingData = (new Order())->order('create_time desc')
+            ->paginate($size, true, ['page' => $page]);
+
+        return $pagingData;
     }
 }
