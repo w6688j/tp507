@@ -123,6 +123,30 @@ class Token
     }
 
     /**
+     * needSuperScope
+     *
+     * @author wangjian
+     * @time   2018/9/18 17:29
+     * @throws Exception
+     * @throws ForbiddenException
+     * @throws TokenException
+     * @return bool
+     */
+    public static function needSuperScope()
+    {
+        $scope = self::getCurrentTokenVar('scope');
+        if ($scope) {
+            if ($scope == ScopeEnum::Super) {
+                return true;
+            } else {
+                throw new ForbiddenException();
+            }
+        } else {
+            throw new TokenException();
+        }
+    }
+
+    /**
      * needExclusiveScope 只有用户可以访问的权限
      *
      * @author wangjian
@@ -165,5 +189,24 @@ class Token
         }
 
         return ($checkedUID == self::getCurrentUID());
+    }
+
+    /**
+     * verifyToken
+     *
+     * @param $token
+     *
+     * @author wangjian
+     * @time   2018/9/18 17:27
+     * @return bool
+     */
+    public static function verifyToken($token)
+    {
+        $exist = Cache::get($token);
+        if ($exist) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
