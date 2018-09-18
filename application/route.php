@@ -50,11 +50,14 @@ Route::post('api/:version/token/verify', 'api/:version.Token/verifyToken');
 
 // Address相关
 Route::post('api/:version/address', 'api/:version.Address/createOrUpdateAddress');
+Route::get('api/:version/address', 'api/:version.Address/getUserAddress');
 
 // Order相关
 Route::group('api/:version/order', function () {
     Route::post('/', 'api/:version.Order/placeOrder');
-    Route::get('/buy_user', 'api/:version.Order/getSummaryByUser');
+    //不想把所有查询都写在一起，所以增加by_user，很好的REST与RESTFul的区别
+    Route::get('/by_user', 'api/:version.Order/getSummaryByUser');
+    Route::get('/paginate', 'api/:version.Order/getSummary');
     Route::get('/:id', 'api/:version.Order/getDetail', [], ['id' => '\d+']);
 });
 

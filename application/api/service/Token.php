@@ -10,6 +10,7 @@ namespace app\api\service;
 
 use app\lib\enum\ScopeEnum;
 use app\lib\exception\ForbiddenException;
+use app\lib\exception\ParameterException;
 use app\lib\exception\TokenException;
 use think\Cache;
 use think\Exception;
@@ -67,7 +68,7 @@ class Token
     }
 
     /**
-     * getCurrentUID 获取当前UID
+     * getCurrentUID 获取当前UID 当需要获取全局UID时，应当调用此方法 而不应当自己解析UID
      *
      * @author wangjian
      * @time   2018/6/9 17:44
@@ -75,11 +76,25 @@ class Token
      * @throws Exception
      * @throws TokenException
      */
-    public static function getCurrentUID()
+    public static function getCurrentUid()
     {
-        $uid = self::getCurrentTokenVar('uid');
+        $uid   = self::getCurrentTokenVar('uid');
+        $scope = self::getCurrentTokenVar('scope');
+        if ($scope == ScopeEnum::Super) {
+            // 只有Super权限才可以自己传入uid
+            // 且必须在get参数中，post不接受任何uid字段
+            $userID = input('get.uid');
+            if (!$userID) {
+                throw new ParameterException(
+                    [
+                        'msg' => '没有指定需要操作的用户对象',
+                    ]);
+            }
 
-        return $uid;
+            return $userID;
+        } else {
+            return $uid;
+        }
     }
 
     /**
