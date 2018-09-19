@@ -68,3 +68,8 @@ Route::group('api/:version/pay', function () {
     Route::post('/notify', 'api/:version.Pay/receiveNotify');
     Route::post('/re_notify', 'api/:version.Pay/redirectNotify');
 });
+
+// 后台
+Route::group('api/:version/admin', function () {
+    Route::get('/navlist', 'api/:version.admin.Navlist/getAll');
+});
