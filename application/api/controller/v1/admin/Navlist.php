@@ -18,12 +18,13 @@ class Navlist extends BaseController
             'code' => 0,
             'data' => [
                 [
-                    'id'   => '2',
+                    'id'   => '1',
                     'href' => 'index',
-                    'text' => '报表',
+                    'text' => '管理',
                     'list' => [
-                        ['id' => 1, 'name' => '门店报表', 'list' => $this->storeReport()],
-                        ['id' => 2, 'name' => '财务报表', 'list' => $this->storeReport()],
+                        ['id' => 1, 'name' => '商品管理', 'list' => $this->getProductOperation()],
+                        ['id' => 2, 'name' => '订单管理', 'list' => $this->getOrderOperation()],
+                        ['id' => 3, 'name' => '用户管理', 'list' => $this->getUserOperation()],
                     ],
                 ],
                 [
@@ -43,24 +44,57 @@ class Navlist extends BaseController
     }
 
     /**
-     * storeReport 门店报表
+     * getProductOperation 获取商品操作菜单
      *
-     * @author chenchao
+     * @author wangjian
+     * @time   2018/9/19 16:17
      * @return array
      */
-    private function storeReport()
+    private function getProductOperation()
+    {
+        return [
+            [
+                'id'            => 11,
+                'text'          => '产品列表',
+                'href'          => 'product',
+                'hasPermission' => true,
+            ],
+        ];
+    }
+
+    /**
+     * getOrderOperation 获取订单操作菜单
+     *
+     * @author wangjian
+     * @time   2018/9/19 16:20
+     * @return array
+     */
+    private function getOrderOperation()
     {
         return [
             [
                 'id'            => 21,
-                'text'          => 'finance',
-                'href'          => 'finance',
+                'text'          => '订单列表',
+                'href'          => 'order',
                 'hasPermission' => true,
             ],
+        ];
+    }
+
+    /**
+     * getUserOperation 获取用户操作菜单
+     *
+     * @author wangjian
+     * @time   2018/9/19 16:20
+     * @return array
+     */
+    private function getUserOperation()
+    {
+        return [
             [
-                'id'            => 22,
-                'text'          => 'finance',
-                'href'          => 'finance',
+                'id'            => 31,
+                'text'          => '用户列表',
+                'href'          => 'user',
                 'hasPermission' => true,
             ],
         ];
