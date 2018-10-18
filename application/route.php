@@ -73,3 +73,8 @@ Route::group('api/:version/pay', function () {
 Route::group('api/:version/admin', function () {
     Route::get('/navlist', 'api/:version.admin.Navlist/getAll');
 });
+
+// 顾test
+Route::group('api/:version/front', function () {
+    Route::post('/register', 'api/:version.Front/register');
+});
